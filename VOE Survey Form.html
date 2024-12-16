@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice of Employee Survey</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            background-color: #f7f7f7;
+        }
+        h1 {
+            color: #004aad;
+        }
+        h6 {
+            color: #004aad;
+        }
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 200px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #004aad;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #004aad;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #003f91;
+        }
+        #responseMessage {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #28a745;
+        }
+        .feedback-note {
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+            margin-top: 20px;
+        }
+        #successMessage {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: #eaf5e1;
+            border-radius: 8px;
+            border: 1px solid #b3e2b7;
+        }
+        #closeButton {
+            padding: 10px 20px;
+            background-color: #004aad;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #closeButton:hover {
+            background-color: #003f91;
+        }
+    </style>
+</head>
+<body>
+    <!-- Survey Form Container -->
+    <div id="surveyFormContainer" class="form-container">
+        <img src="https://www.kbzbank.com/wp-content/uploads/2018/11/logo_retina2.png" alt="KBZ Bank" class="logo">
+        <h1>Voice of Employee Survey</h1>
+        <h6>သင့်ရဲ့အကြံပြုချက်များကိုတန်ဖိုးထားပါသည်။
+ပိုမိုကောင်းမွန်သော လုပ်ငန်းခွင်တစ်ခုဖော်ဆောင်နိုင်ရန် သင့်ရဲ့ အတွေးအမြင်များ၊ အကြံပြုချက်များ၊ တောင်းဆိုချက်များကို ပွင့်လင်းမြင်သာစွာရေးသားဖော်ပြစေလိုပါသည်။ ယခု စစ်တမ်းသည် မိမိရဲ့ အမည်၊ ဌာနများ မဖော်ပြစေလိုပါက လျှို့ဝှက်စွာ အကြံပြုနိုင်သလို၊ မိမိတို့ ဌာန လိုအပ်
+ချက်များတောင်းဆိုနိုင်ရန်အတွက် ထည့်သွင်းဖော်ပြလိုပါကဖော်ပြနိုင်ပါသည်။  </h6>  <h6>We value your feedback and suggestions. Please feel free to share your thoughts, ideas, or concerns in the space below. Your response will remain completely anonymous, and there is no word limit. This is your opportunity to make a difference and help us improve. Thank you for contributing to a better workplace!</h6>
+        <form id="surveyForm">
+          <label for="name">Name (optional):</label>
+          <input type="text" id="name" name="name">
+
+          <label for="department">Choose Your Department (optional):</label>
+          <select id="department" name="department" required>
+            <option value="Department Name" disabled selected>---Department Name---</option>
+            <option value="KBZ Bank Inbound">KBZ Bank Inbound</option>
+            <option value="KBZPay Inbound">KBZPay Inbound</option>
+            <option value="KBZ Bank Social">KBZ Bank Social</option>
+            <option value="KBZPay Social">KBZPay Social</option>
+            <option value="KBZBank Close Loop">KBZBank Close Loop</option>
+            <option value="KBZPay Close Loop">KBZPay Close Loop</option>
+            <option value="Virtual Sales">Virtual Sales</option>
+            <option value="Customer Engagement">Customer Engagement</option>
+            <option value="Quality Assurance">Quality Assurance</option>
+            <option value="MIS">MIS</option>
+            <option value="NPS">NPS</option>
+          </select>
+
+          <label for="message">Your Suggestions/Comments:</label>
+          <textarea id="message" name="message" rows="6" required></textarea>
+
+          <button type="submit">Submit</button>
+        </form>
+
+        <p id="responseMessage"></p>
+        <p class="feedback-note">Your feedback is valuable to us and completely anonymous.</p>
+    </div>
+
+    <!-- Success Message Container -->
+    <div id="successMessage">
+        <h2>Thank you for your feedback!</h2>
+        <p>Your response has been successfully submitted.</p>
+        <button id="closeButton">Close</button>
+    </div>
+
+    <script>
+        // Listen for form submission
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the form from submitting
+
+            // Prepare form data to send
+            var formData = new FormData(this);
+
+            // Replace with the URL from your Apps Script web app
+            var scriptURL = 'https://script.google.com/macros/s/AKfycbyVYV3-qG4MJaaHS57T4mT9LbRChA00CCHI6io8LwmtxRSEotCQMRBQVFzpkZ06xh4mDg/exec';
+
+            // Send form data to Google Apps Script
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(result => {
+                    // Hide the survey form and show success message
+                    document.getElementById('surveyFormContainer').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                })
+                .catch(error => {
+                    document.getElementById('responseMessage').textContent = 'Error submitting form. Please try again.';
+                    console.error('Error:', error);
+                });
+        });
+
+        // Close button event handler
+        document.getElementById('closeButton').addEventListener('click', function() {
+            // Close the success message and reload the page (or redirect)
+            window.location.reload(); // Reloads the page to reset the survey form
+        });
+    </script>
+</body>
+</html>
